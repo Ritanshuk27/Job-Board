@@ -1,0 +1,115 @@
+/* job-board/static/css/style.css */
+
+/*
+   This file is intended for any custom CSS rules that are not easily
+   achieved or overridden using Tailwind CSS utility classes.
+   For this project, Tailwind handles most styling, so this file remains minimal.
+*/
+
+/*
+   Prose styling:
+   This section defines basic styles for rich text content (like job descriptions)
+   to ensure readability. Tailwind's @tailwindcss/typography plugin is often used
+   for this, but we're defining essential styles manually here for simplicity.
+*/
+.prose {
+    font-size: 1.125rem; /* Equivalent to text-lg */
+    line-height: 1.75; /* Equivalent to leading-relaxed */
+    color: #374151; /* Equivalent to text-gray-700 */
+    max-width: 100%; /* Ensure it adapts to container width */
+}
+
+/* Headings within prose content */
+.prose h1 { @apply text-3xl font-extrabold text-gray-900 mb-4; }
+.prose h2 { @apply text-2xl font-bold text-gray-800 mb-3; }
+.prose h3 { @apply text-xl font-semibold text-gray-800 mb-2; }
+
+/* Paragraphs within prose content */
+.prose p { @apply mb-4; }
+
+/* Lists within prose content */
+.prose ul { @apply list-disc list-inside mb-4; }
+.prose ol { @apply list-decimal list-inside mb-4; }
+
+/* Links within prose content */
+.prose a { @apply text-blue-600 hover:underline; }
+
+/* Strong/bold text within prose content */
+.prose strong { @apply font-semibold; }
+
+/* Emphasized/italic text within prose content */
+.prose em { @apply italic; }
+
+
+/*
+   Custom line-clamp utility:
+   This CSS property displays content for a specified number of lines,
+   then clips the content and displays an ellipsis. Used for job descriptions in cards.
+*/
+.line-clamp-custom {
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limit text to 3 lines */
+    -webkit-box-orient: vertical; /* Essential for -webkit-line-clamp to work */
+    overflow: hidden; /* Hide overflow content */
+    text-overflow: ellipsis; /* Add ellipsis for clipped text */
+}
+
+/*
+   Animations:
+   Keyframe animations for a smoother user experience, e.g., fading in elements.
+*/
+
+/* Fade In animation: For general elements appearing on the page */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeIn {
+    animation: fadeIn 0.5s ease-out forwards; /* Apply fadeIn animation */
+}
+
+/* Slide In Up animation: Specific for job cards to make them appear dynamically */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.job-card-animation {
+    animation: slideInUp 0.5s ease-out forwards; /* Apply slideInUp animation */
+}
+
+/* Flash message animation: For messages that appear briefly */
+.flash-message {
+    animation: fadeIn 0.5s ease-out forwards; /* Uses the same fadeIn animation */
+}
+
+/* Tooltip style for truncated messages in admin table */
+/* When hovering over an element with a 'title' attribute, display its content as a tooltip */
+[title]:hover::after {
+  content: attr(title); /* Display the content of the title attribute */
+  background-color: #333; /* Dark background for the tooltip */
+  color: #fff; /* White text color */
+  padding: 8px 12px; /* Padding inside the tooltip */
+  border-radius: 6px; /* Slightly rounded corners */
+  position: absolute; /* Position relative to the hovered element */
+  z-index: 1000; /* Ensure tooltip is on top of other content */
+  white-space: pre-wrap; /* Preserve whitespace and allow line breaks */
+  word-wrap: break-word; /* Break long words */
+  max-width: 350px; /* Maximum width for the tooltip */
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%) translateY(10px); /* Adjust vertical position */
+  opacity: 0; /* Initially hidden */
+  pointer-events: none; /* Do not block mouse events on content below */
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; /* Smooth transition for appearance */
+}
+
+/* Show the tooltip when hovering */
+[title]:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0); /* Slide up into view */
+}

@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin - All Applications - Job Board{% endblock %}
+
+{% block content %}
+<div class="bg-white p-8 md:p-10 rounded-xl shadow-xl border border-gray-100 animate-fadeIn">
+    <h1 class="text-4xl md:text-5xl font-extrabold text-center text-gray-900 mb-10">
+        <i class="ph ph-clipboard-text text-purple-600 mr-3 text-4xl md:text-5xl"></i>All Job Applications
+    </h1>
+
+    {% if applications %}
+    <div class="overflow-x-auto rounded-xl shadow-md border border-gray-200">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th scope="col" class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
+                        Applicant
+                    </th>
+                    <th scope="col" class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
+                        Email
+                    </th>
+                    <th scope="col" class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
+                        Applied For (Company)
+                    </th>
+                    <th scope="col" class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
+                        Message Preview
+                    </th>
+                    <th scope="col" class="px-6 py-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">
+                        Application Date
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-100">
+                {% for app in applications %}
+                <tr class="hover:bg-gray-50 transition-colors duration-200">
+                    <td class="px-6 py-4 whitespace-nowrap text-md font-medium text-gray-900">
+                        <div class="flex items-center">
+                            <i class="ph ph-user-circle text-xl text-blue-500 mr-2"></i>
+                            {{ app.applicant_name }}
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-md text-blue-600 hover:underline">
+                        <a href="mailto:{{ app.email }}" class="flex items-center">
+                            <i class="ph ph-envelope-simple text-xl mr-2"></i>
+                            {{ app.email }}
+                        </a>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-md text-gray-700">
+                        <a href="{{ url_for('job_detail', job_id=app.job_id) }}" class="hover:underline text-blue-600 font-medium flex items-center">
+                            <i class="ph ph-briefcase text-xl mr-2"></i>
+                            {{ app.job_title }} <span class="text-gray-500 ml-1">({{ app.company }})</span>
+                        </a>
+                    </td>
+                    <td class="px-6 py-4 text-md text-gray-700 relative group">
+                        <!-- Custom line-clamp to show a preview of the message -->
+                        <span class="line-clamp-custom">{{ app.message | default('No message provided.') }}</span>
+                        <!-- 'Read more' link with a tooltip showing the full message on hover -->
+                        {% if app.message and app.message | length > 50 %}
+                        <span class="text-blue-500 cursor-pointer text-xs ml-1" title="{{ app.message }}">...read more</span>
+                        {% endif %}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <div class="flex items-center">
+                            <i class="ph ph-calendar text-lg mr-2"></i>
+                            {{ app.application_date.strftime('%b %d, %Y') }}<br>
+                            <span class="text-xs">{{ app.application_date.strftime('%H:%M %p') }}</span>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="text-center text-gray-600 text-2xl py-10">
+        <i class="ph ph-notepad-slash text-5xl text-gray-400 mb-4"></i><br>
+        No applications received yet.
+    </p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}Post a New Job - Job Board{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto bg-white p-8 md:p-10 rounded-xl shadow-xl border border-gray-100 animate-fadeIn">
+    <h1 class="text-4xl md:text-5xl font-extrabold text-center text-gray-900 mb-10">
+        <i class="ph ph-plus-circle text-blue-600 mr-3 text-4xl md:text-5xl"></i>Post a New Job Opportunity
+    </h1>
+
+    <form method="POST" action="{{ url_for('post_job') }}" class="space-y-7">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-7">
+            <!-- Job Title Input -->
+            <div>
+                <label for="title" class="block text-lg font-medium text-gray-700 mb-2">Job Title <span class="text-red-500">*</span></label>
+                <input type="text" id="title" name="title" required
+                       class="mt-1 block w-full px-5 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 text-lg"
+                       placeholder="e.g., Senior Software Engineer">
+            </div>
+            <!-- Company Name Input -->
+            <div>
+                <label for="company" class="block text-lg font-medium text-gray-700 mb-2">Company Name <span class="text-red-500">*</span></label>
+                <input type="text" id="company" name="company" required
+                       class="mt-1 block w-full px-5 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 text-lg"
+                       placeholder="e.g., Innovate Tech Solutions">
+            </div>
+            <!-- Location Input -->
+            <div>
+                <label for="location" class="block text-lg font-medium text-gray-700 mb-2">Location <span class="text-red-500">*</span></label>
+                <input type="text" id="location" name="location" required
+                       class="mt-1 block w-full px-5 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 text-lg"
+                       placeholder="e.g., Remote, San Francisco, CA">
+            </div>
+            <!-- Salary Input -->
+            <div>
+                <label for="salary" class="block text-lg font-medium text-gray-700 mb-2">Salary (Optional)</label>
+                <input type="text" id="salary" name="salary"
+                       class="mt-1 block w-full px-5 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 text-lg"
+                       placeholder="e.g., $120,000 - $150,000 annually">
+            </div>
+        </div>
+        <!-- Job Description Textarea -->
+        <div>
+            <label for="description" class="block text-lg font-medium text-gray-700 mb-2">Job Description <span class="text-red-500">*</span></label>
+            <textarea id="description" name="description" rows="12" required
+                      class="mt-1 block w-full px-5 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 text-lg"
+                      placeholder="Provide a detailed description of the job responsibilities, requirements, and benefits."></textarea>
+        </div>
+        <!-- Job Type Selection (Added for consistency with filters, and updated Flask app.py) -->
+        <div>
+            <label for="type" class="block text-lg font-medium text-gray-700 mb-2">Job Type <span class="text-red-500">*</span></label>
+            <div class="relative">
+                <select id="type" name="type" required
+                        class="mt-1 block w-full px-5 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 text-lg appearance-none bg-white">
+                    <option value="Full-time">Full-time</option>
+                    <option value="Part-time">Part-time</option>
+                    <option value="Contract">Contract</option>
+                    <option value="Temporary">Temporary</option>
+                    <option value="Internship">Internship</option>
+                </select>
+                <i class="ph ph-caret-down text-gray-400 text-xl absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+            </div>
+        </div>
+
+
+        <div class="flex justify-center mt-10">
+            <button type="submit"
+                    class="bg-blue-600 text-white px-10 py-4 rounded-full font-bold text-xl shadow-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 flex items-center justify-center">
+                <i class="ph ph-paper-plane-tilt text-2xl mr-3"></i>Post Job
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

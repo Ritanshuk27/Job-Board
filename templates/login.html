@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Login - Job Board{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto bg-white p-8 md:p-10 rounded-xl shadow-xl border border-gray-100 animate-fadeIn">
+    <h1 class="text-4xl md:text-5xl font-extrabold text-center text-gray-900 mb-8">
+        <i class="ph ph-sign-in text-green-600 mr-3 text-4xl md:text-5xl"></i>Login to Your Account
+    </h1>
+
+    <form method="POST" action="{{ url_for('login') }}" class="space-y-6">
+        <div>
+            <label for="username" class="block text-lg font-medium text-gray-700 mb-2">Username <span class="text-red-500">*</span></label>
+            <input type="text" id="username" name="username" required
+                   class="mt-1 block w-full px-5 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 text-lg"
+                   placeholder="Your username">
+        </div>
+        <div>
+            <label for="password" class="block text-lg font-medium text-gray-700 mb-2">Password <span class="text-red-500">*</span></label>
+            <input type="password" id="password" name="password" required
+                   class="mt-1 block w-full px-5 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 text-lg"
+                   placeholder="Your password">
+        </div>
+
+        <div class="flex justify-center mt-8">
+            <button type="submit"
+                    class="bg-green-600 text-white px-10 py-4 rounded-full font-bold text-xl shadow-lg hover:bg-green-700 transition-all duration-300 transform hover:scale-105 flex items-center justify-center">
+                <i class="ph ph-key text-2xl mr-3"></i>Log In
+            </button>
+        </div>
+    </form>
+
+    <p class="text-center text-gray-600 mt-6 text-lg">
+        Don't have an account? <a href="{{ url_for('signup') }}" class="text-blue-600 font-semibold hover:underline">Sign Up</a>
+    </p>
+</div>
+{% endblock %}
